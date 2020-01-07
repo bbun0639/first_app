@@ -7,11 +7,9 @@ import 'package:flutter/material.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-
-  void answerQuestions(){
-    print('Answer chosen!');
+  void answerQuestions() {
+    print('Any Answer chosen!');
   }
-
 
   //inheritance by 'extends'
   @override //decorator
@@ -27,18 +25,23 @@ class MyApp extends StatelessWidget {
         ),
         body: Column(
           children: [
-            Text('The question!'),
+            Text(
+              //questions.elementAt(0),
+              questions[0],
+            ),
             RaisedButton(
               child: Text('Answer 1'),
               onPressed: answerQuestions,
             ),
             RaisedButton(
               child: Text('Answer 2'),
-              onPressed: () => print('Answer 2 chosen!'), //Anonymous () function
+              onPressed: () =>
+                  print('Answer 2 chosen!'), //Anonymous () function
             ),
             RaisedButton(
               child: Text('Answer 3'),
-              onPressed: () {   //Anonymous () function
+              onPressed: () {
+                //Anonymous () function
                 //..
                 print('Answer 3 chosen!');
               },
