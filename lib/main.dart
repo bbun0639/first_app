@@ -6,9 +6,26 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+
+  @override                             //@override agian bc. createState is a method provided by stateful wigget
+  State<StatefulWidget> createState() {
+    // TODO: implement createElement
+    return MyAppState();
+  }
+}
+
+class MyAppState extends State<MyApp> { //This class belong to the MyApp(Wiget)
+
+  var questionIndex = 0;
+
   void answerQuestions() {
-    print('Any Answer chosen!');
+    setState(() {     //setState is function to provided by the State<MyApp> inherit(ถ่ายทอด)  //setState takes a function
+      questionIndex = questionIndex + 1;
+    });
+    
+    print(questionIndex);
+    //print('Any Answer chosen!');
   }
 
   //inheritance by 'extends'
@@ -27,7 +44,7 @@ class MyApp extends StatelessWidget {
           children: [
             Text(
               //questions.elementAt(0),
-              questions[0],
+              questions[questionIndex],
             ),
             RaisedButton(
               child: Text('Answer 1'),
