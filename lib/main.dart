@@ -1,30 +1,38 @@
 import 'package:flutter/material.dart';
 
+import './question.dart';
+
 // void main(){
 //   runApp(MyApp());
 // }
 
 void main() => runApp(MyApp());
 
+//Stateful can re-eun build() when its properties change
+
 class MyApp extends StatefulWidget {
 
   @override                             //@override agian bc. createState is a method provided by stateful wigget
   State<StatefulWidget> createState() {
-    // TODO: implement createElement
-    return MyAppState();
+
+    return _MyAppState();
   }
 }
 
-class MyAppState extends State<MyApp> { //This class belong to the MyApp(Wiget)
+// _ : special syntax turn public class --> private clss
 
-  var questionIndex = 0;
+class _MyAppState extends State<MyApp> { //This class belong to the MyApp(Wiget)
 
-  void answerQuestions() {
-    setState(() {     //setState is function to provided by the State<MyApp> inherit(ถ่ายทอด)  //setState takes a function
-      questionIndex = questionIndex + 1;
+  var _questionIndex = 0;
+
+  void _answerQuestions() {
+    //setState is function to provided by the State<MyApp> inherit(ถ่ายทอด)  
+    //setState is function that forces Flutter to re-render the UI
+    setState(() { 
+      _questionIndex = _questionIndex + 1;
     });
     
-    print(questionIndex);
+    print(_questionIndex);
     //print('Any Answer chosen!');
   }
 
@@ -42,13 +50,13 @@ class MyAppState extends State<MyApp> { //This class belong to the MyApp(Wiget)
         ),
         body: Column(
           children: [
-            Text(
+            Question(     //It's constructor to get value for the questionText
               //questions.elementAt(0),
-              questions[questionIndex],
+              questions[_questionIndex],
             ),
             RaisedButton(
               child: Text('Answer 1'),
-              onPressed: answerQuestions,
+              onPressed: _answerQuestions,
             ),
             RaisedButton(
               child: Text('Answer 2'),
