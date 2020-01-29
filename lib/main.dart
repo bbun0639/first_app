@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import './question.dart';
 
+import './answer.dart';
+
 // void main(){
 //   runApp(MyApp());
 // }
@@ -54,22 +56,14 @@ class _MyAppState extends State<MyApp> { //This class belong to the MyApp(Wiget)
               //questions.elementAt(0),
               questions[_questionIndex],
             ),
-            RaisedButton(
-              child: Text('Answer 1'),
-              onPressed: _answerQuestions,
-            ),
+            
+            Answer(_answerQuestions), //ต้องไปเพิ่ม  Constructor ด้วยเพื่อยอมรับการ Callback
+            Answer(_answerQuestions), //Answer จะไป Pointer at a Function Answer
+            Answer(_answerQuestions),
             RaisedButton(
               child: Text('Answer 2'),
               onPressed: () =>
                   print('Answer 2 chosen!'), //Anonymous () function
-            ),
-            RaisedButton(
-              child: Text('Answer 3'),
-              onPressed: () {
-                //Anonymous () function
-                //..
-                print('Answer 3 chosen!');
-              },
             ),
           ],
         ),
