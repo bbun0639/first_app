@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 class Question extends StatelessWidget {
   final String questionText;
 
-  Question(
-      this.questionText); //Constructor //When data is received here the Const that will be store in questionText
+  Question(this.questionText); //Constructor //When data is received here the Const that will be store in questionText
 
   @override
   Widget build(BuildContext context) {
