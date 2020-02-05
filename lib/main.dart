@@ -1,9 +1,12 @@
+import 'package:first_app/result.dart';
 import 'package:flutter/material.dart';
 
 import './question.dart';
-
 import './answer.dart';
 
+import './quiz.dart';
+
+import './result.dart';
 
 // void main(){
 //   runApp(MyApp());
@@ -27,30 +30,45 @@ class _MyAppState extends State<MyApp> {
 
   var _questionIndex = 0;
 
-  final questions = const [                         //Add 'const' in front of variable for value is const in Dart
-      {
-        'questionText': 'What\'s your fav color?',    //Map = key-value 'pair'
-        'answer': ['Black', 'White', 'Green', 'Red',],
-      },
-      {
-        'questionText': 'What\'s your fav animal?',
-        'answer': ['Dog', 'Cat', 'Snake', 'Lion',],
-      },
-      {
-        'questionText': 'What\'s your fav instructor?',
-        'answer': ['Max', 'Jack', 'Rack',],
-      },
-    ];
+  final _questions = const [
+    //Add 'const' in front of variable for value is const in Dart
+    {
+      'questionText': 'What\'s your fav color?', //Map = key-value 'pair'
+      'answer': [
+        'Black',
+        'White',
+        'Green',
+        'Red',
+      ],
+    },
+    {
+      'questionText': 'What\'s your fav animal?',
+      'answer': [
+        'Dog',
+        'Cat',
+        'Snake',
+        'Lion',
+      ],
+    },
+    {
+      'questionText': 'What\'s your fav instructor?',
+      'answer': [
+        'Max',
+        'Jack',
+        'Rack',
+      ],
+    },
+  ];
 
   void _answerQuestions() {
     //setState is function to provided by the State<MyApp> inherit(ถ่ายทอด)
     //setState is function that forces Flutter to re-render the UI
-    
+
     setState(() {
       _questionIndex = _questionIndex + 1;
     });
 
-    if (_questionIndex < questions.length) {
+    if (_questionIndex < _questions.length) {
       print('We have more question!');
     } else {
       print('No more question!');
@@ -63,8 +81,7 @@ class _MyAppState extends State<MyApp> {
   //inheritance by 'extends'
   @override //decorator
   Widget build(BuildContext context) {
-    
-    //questions = [];   //can't be assigned new object if questions is a 'const' (it could var .... const []) 
+    //questions = [];   //can't be assigned new object if questions is a 'const' (it could var .... const [])
 
     // var dummy = const ['Hello'];
     // dummy.add('Max');
@@ -76,34 +93,13 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: Text('My First App'),
         ),
-        body: _questionIndex < questions.length ? Column(  // Use '?' for mark border to the code which if this TRUE
-          children: [
-            Question(
-              //It's constructor to get value for the questionText
-              //questions.elementAt(0),
-              questions[_questionIndex]['questionText'],
-            ),
-
-            ...(questions[_questionIndex]['answer'] as List<String>).map((answer) {   //Error at map() : Dart can't detect because 'answer' holds a list
-              return Answer(_answerQuestions, answer);                                //'List<String>' to tell Dart 'answer' is a list
-            }).toList() //Convert value in map() to list    //... take a list that we habe & pull all value in the list
-
-
-
-            // Answer(_answerQuestions), //ต้องไปเพิ่ม  Constructor ด้วยเพื่อยอมรับการ Callback
-            // Answer(_answerQuestions), //Answer จะไป Pointer at a Function Answer
-            // RaisedButton(
-            //   child: Text('Answer 2'),
-            //   color: Colors.deepOrange
-            //   onPressed: () =>
-            //       print('Answer 2 chosen!'), //Anonymous () function
-            // ),
-          ],
-        ) : Center(
-            child: Text(
-              'No more question!', 
-              style: TextStyle(fontSize: 28),) 
-          ),
+        body: _questionIndex < _questions.length
+            ? Quiz(
+                answerQuestions: _answerQuestions,
+                questionIndex: _questionIndex,
+                questions: _questions,
+              ) //pass value from constructor
+            : Result()
       ),
     );
   }
