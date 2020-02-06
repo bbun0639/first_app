@@ -28,53 +28,72 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   //This class belong to the MyApp(Wiget)
 
-  var _questionIndex = 0;
-
   final _questions = const [
     //Add 'const' in front of variable for value is const in Dart
     {
       'questionText': 'What\'s your fav color?', //Map = key-value 'pair'
       'answer': [
-        'Black',
-        'White',
-        'Green',
-        'Red',
+        {'text': 'Black', 'score': 10},
+        {'text': 'White', 'score': 5},
+        {'text': 'Green', 'score': 3},
+        {'text': 'Red', 'score': 2},
       ],
     },
     {
       'questionText': 'What\'s your fav animal?',
       'answer': [
-        'Dog',
-        'Cat',
-        'Snake',
-        'Lion',
+        {'text': 'Dog', 'score': 5},
+        {'text': 'Cat', 'score': 10},
+        {'text': 'Snake', 'score': 1},
+        {'text': 'Fish', 'score': 4},
       ],
     },
     {
       'questionText': 'What\'s your fav instructor?',
       'answer': [
-        'Max',
-        'Jack',
-        'Rack',
+        {'text': 'Max', 'score': 10},
+        {'text': 'Jane', 'score': 8},
+        {'text': 'Mike', 'score': 5}
       ],
     },
+    {
+      'questionText': 'What\'s your fav place?',
+      'answer': [
+        {'text': 'Bed', 'score': 10},
+        {'text': 'Sea', 'score': 6},
+        {'text': 'Office', 'score': 1},
+      ]
+    }
   ];
 
-  void _answerQuestions() {
+  var _questionIndex = 0;
+  var _totalScore = 0;
+
+  void _resetQuiz() {
+    setState(() {
+      _questionIndex = 0;
+      _totalScore = 0;
+    });
+  }
+
+  void _answerQuestion(int score) {
     //setState is function to provided by the State<MyApp> inherit(ถ่ายทอด)
     //setState is function that forces Flutter to re-render the UI
+
+    _totalScore += score;
 
     setState(() {
       _questionIndex = _questionIndex + 1;
     });
 
     if (_questionIndex < _questions.length) {
-      print('We have more question!');
+      print('Score = '+ score.toString());
+      print('We have more question!' + ' (' + _questionIndex.toString()+ ')');
     } else {
-      print('No more question!');
-    }
-
-    print(_questionIndex);
+      print('Score = '+ score.toString());
+      print('No more question!'+ ' (' + _questionIndex.toString() + ')');
+      print('Total Score = '+ _totalScore.toString());
+    }    
     //print('Any Answer chosen!');
   }
 
@@ -90,17 +109,16 @@ class _MyAppState extends State<MyApp> {
 
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('My First App'),
-        ),
-        body: _questionIndex < _questions.length
-            ? Quiz(
-                answerQuestions: _answerQuestions,
-                questionIndex: _questionIndex,
-                questions: _questions,
-              ) //pass value from constructor
-            : Result()
-      ),
+          appBar: AppBar(
+            title: Text('My First App'),
+          ),
+          body: _questionIndex < _questions.length
+              ? Quiz(
+                  answerQuestion: _answerQuestion,
+                  questionIndex: _questionIndex,
+                  questions: _questions,
+                ) //pass value from constructor
+              : Result(_totalScore, _resetQuiz)),
     );
   }
 }

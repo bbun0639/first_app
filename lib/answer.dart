@@ -15,11 +15,11 @@ class Answer extends StatelessWidget {
       child: RaisedButton(
         child: Text(
           answerText,
-          style: TextStyle(fontSize: 20),
+          style: TextStyle(fontSize: 16),
         ),
         color: Colors.blue,
         textColor: Colors.white,
-        onPressed: selectHandler,
+        onPressed: selectHandler, //onPressed takes a func 'without argument' *** () =>
       ),
     );
   }
